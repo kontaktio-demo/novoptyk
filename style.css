@@ -1468,16 +1468,11 @@ p { color: var(--ink); }
           mask-image: radial-gradient(closest-side at 70% 70%, #000 32%, transparent var(--ornament-mask-fade));
 }
 
-/* Variant: opposite diagonals for the two corners (cross-hatch feel) */
+/* Variant: opposite diagonals for the two corners (cross-hatch feel).
+   Only the bottom-right blob's angle is flipped; the gradient itself
+   re-evaluates `var(--ornament-angle)` automatically. */
 .has-ornament--cross::after {
   --ornament-angle: 45deg;
-  background-image: repeating-linear-gradient(
-    45deg,
-    var(--ornament-color) 0,
-    var(--ornament-color) var(--ornament-thickness),
-    transparent var(--ornament-thickness),
-    transparent var(--ornament-gap)
-  );
 }
 
 /* Variant: wider spacing — sparser, more architectural lines */
