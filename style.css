@@ -1584,62 +1584,173 @@ p { color: var(--ink); }
   display: flex;
   flex-direction: column;
   gap: 14px;
-  background: #FFFFFF;
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgba(201, 162, 74, 0.10), transparent 55%),
+    linear-gradient(180deg, #FFFFFF 0%, #FBF7EE 100%);
   color: var(--ink);
   border-radius: 14px;
-  padding: 64px 28px 28px;
+  padding: 70px 28px 28px;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
   text-decoration: none;
-  transition: transform var(--t), box-shadow var(--t);
+  transition: transform var(--t), box-shadow var(--t), border-color var(--t);
   isolation: isolate;
+  border: 1px solid rgba(201, 162, 74, 0.18);
+}
+.icon-card::before {
+  /* Thin gold accent line along the top edge of every card */
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 14%;
+  right: 14%;
+  height: 2px;
+  border-radius: 0 0 2px 2px;
+  background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--gold-soft) 50%, var(--gold) 70%, transparent);
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity var(--t), left var(--t), right var(--t);
 }
 .icon-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.28);
+  transform: translateY(-6px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.32);
+  border-color: rgba(201, 162, 74, 0.55);
 }
+.icon-card:hover::before {
+  opacity: 1;
+  left: 4%;
+  right: 4%;
+}
+
+/* Decorative diagonal-stripe corner inside each card — echoes the
+   section's gold ornament motif at a smaller, card-level scale. */
+.icon-card__corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 110px;
+  height: 110px;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    135deg,
+    var(--gold) 0,
+    var(--gold) 1.5px,
+    transparent 1.5px,
+    transparent 9px
+  );
+  opacity: 0.55;
+  -webkit-mask-image: radial-gradient(closest-side at 100% 0%, #000 35%, transparent 75%);
+          mask-image: radial-gradient(closest-side at 100% 0%, #000 35%, transparent 75%);
+  z-index: 0;
+  transition: opacity var(--t);
+}
+.icon-card:hover .icon-card__corner { opacity: 0.85; }
 
 .icon-card__icon {
   position: absolute;
-  top: -28px;
+  top: -32px;
   left: 28px;
-  width: 64px;
-  height: 64px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--gold-soft), var(--gold) 55%, var(--gold-deep));
+  background:
+    radial-gradient(circle at 32% 30%, rgba(255, 255, 255, 0.55), transparent 55%),
+    linear-gradient(135deg, var(--gold-soft), var(--gold) 55%, var(--gold-deep));
   color: #0E0E0D;
   display: grid;
   place-items: center;
-  box-shadow: 0 10px 22px rgba(140, 106, 31, 0.45);
+  box-shadow:
+    0 12px 24px rgba(140, 106, 31, 0.45),
+    0 0 0 6px rgba(201, 162, 74, 0.18),
+    0 0 0 11px rgba(201, 162, 74, 0.08),
+    inset 0 -4px 10px rgba(140, 106, 31, 0.35);
   border: 3px solid #FFFFFF;
+  z-index: 1;
+  transition: transform var(--t), box-shadow var(--t);
+}
+.icon-card:hover .icon-card__icon {
+  transform: rotate(-4deg) scale(1.04);
+  box-shadow:
+    0 16px 30px rgba(140, 106, 31, 0.55),
+    0 0 0 6px rgba(201, 162, 74, 0.28),
+    0 0 0 13px rgba(201, 162, 74, 0.10),
+    inset 0 -4px 10px rgba(140, 106, 31, 0.35);
 }
 .icon-card__icon svg {
-  width: 28px;
-  height: 28px;
+  width: 38px;
+  height: 38px;
   stroke: #0E0E0D;
   fill: none;
-  stroke-width: 1.6;
+  stroke-width: 1.5;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-.icon-card__title {
+/* Higher specificity than `.section--showcase h3` so the card title
+   stays dark on the white card background (not white-on-white). */
+.icon-card .icon-card__title {
   font-family: var(--font-display);
   font-size: clamp(1.15rem, 1.5vw, 1.35rem);
   letter-spacing: -0.01em;
   line-height: 1.2;
   color: var(--ink);
   font-weight: 300;
+  position: relative;
+  z-index: 1;
 }
 .icon-card__title strong {
   display: block;
   font-weight: 700;
 }
+
+/* Slim gold accent line under the title */
+.icon-card__divider {
+  display: block;
+  width: 36px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold-deep), var(--gold) 60%, var(--gold-soft));
+  border-radius: 2px;
+  margin-top: -4px;
+  transition: width var(--t);
+  position: relative;
+  z-index: 1;
+}
+.icon-card:hover .icon-card__divider { width: 60px; }
+
 .icon-card p {
   color: var(--ink-soft);
   font-size: 0.97rem;
   line-height: 1.55;
   margin: 0;
+  position: relative;
+  z-index: 1;
 }
+
+/* Feature pill tags — concrete details that make each card richer */
+.icon-card__tags {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  position: relative;
+  z-index: 1;
+}
+.icon-card__tags li {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  background: var(--gold-tint);
+  border: 1px solid rgba(201, 162, 74, 0.28);
+  padding: 5px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
 .icon-card__more {
   margin-top: auto;
   padding-top: 14px;
@@ -1652,6 +1763,8 @@ p { color: var(--ink); }
   align-items: center;
   gap: 8px;
   transition: gap var(--t), color var(--t);
+  position: relative;
+  z-index: 1;
 }
 .icon-card:hover .icon-card__more { gap: 12px; color: var(--ink); }
 .icon-card__more::after { content: "→"; font-size: 1rem; line-height: 1; }
