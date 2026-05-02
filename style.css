@@ -15,6 +15,11 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   --espresso:    #1A1916;
   --espresso-h:  #2A2723;
 
+  --gold:        #C9A24A;
+  --gold-soft:   #E2C781;
+  --gold-deep:   #8C6A1F;
+  --gold-tint:   rgba(201, 162, 74, 0.12);
+
   --line:        rgba(14, 14, 13, 0.12);
   --line-soft:   rgba(14, 14, 13, 0.06);
   --shadow-sm:   0 2px 6px  rgba(14, 14, 13, 0.05);
@@ -1382,3 +1387,188 @@ p { color: var(--ink); }
   .lightbox__close { width: 40px; height: 40px; top: 12px; right: 12px; }
   .footer__bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
 }
+
+/* ============================================================
+   Showcase section — black panel with gold diagonal-stripe
+   corner ornaments (top-left + bottom-right), white pill badge,
+   centered headline and a row of white icon cards.
+   Inspired by the reference layout, palette: white / black / gold.
+   ============================================================ */
+
+.section--showcase {
+  position: relative;
+  background: var(--ink);
+  color: #FFFFFF;
+  overflow: hidden;
+  isolation: isolate;
+}
+.section--showcase h1,
+.section--showcase h2,
+.section--showcase h3,
+.section--showcase h4 { color: #FFFFFF; }
+.section--showcase .lead,
+.section--showcase p { color: rgba(255, 255, 255, 0.78); }
+
+/* Diagonal gold stripe blobs in opposite corners. The repeating
+   gradient draws the stripes; a radial mask softens them into
+   organic blob shapes that sit in the corners. */
+.section--showcase::before,
+.section--showcase::after {
+  content: "";
+  position: absolute;
+  width: clamp(280px, 38vw, 560px);
+  height: clamp(280px, 38vw, 560px);
+  background-image: repeating-linear-gradient(
+    135deg,
+    var(--gold) 0,
+    var(--gold) 2px,
+    transparent 2px,
+    transparent 14px
+  );
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.85;
+  -webkit-mask-image: radial-gradient(closest-side at 30% 30%, #000 30%, transparent 75%);
+          mask-image: radial-gradient(closest-side at 30% 30%, #000 30%, transparent 75%);
+}
+.section--showcase::before {
+  top: -8%;
+  left: -8%;
+}
+.section--showcase::after {
+  bottom: -8%;
+  right: -8%;
+  -webkit-mask-image: radial-gradient(closest-side at 70% 70%, #000 30%, transparent 75%);
+          mask-image: radial-gradient(closest-side at 70% 70%, #000 30%, transparent 75%);
+}
+.section--showcase > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Centered head used inside the showcase */
+.section__head--showcase {
+  align-items: center;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 880px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.section__head--showcase h2 {
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  font-size: clamp(2.2rem, 4.6vw, 3.8rem);
+  line-height: 1.05;
+}
+.section__head--showcase .lead {
+  font-size: clamp(1rem, 1.2vw, 1.12rem);
+  max-width: 64ch;
+  margin: 0 auto;
+}
+
+/* Pill badge (white pill with gold uppercase label) */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  background: #FFFFFF;
+  color: var(--gold-deep);
+  font-family: var(--font-ui);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+}
+
+/* Icon cards row */
+.icon-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(20px, 2.4vw, 32px);
+  margin-top: clamp(72px, 8vw, 110px);
+}
+@media (max-width: 1024px) { .icon-cards { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px)  { .icon-cards { grid-template-columns: 1fr; } }
+
+.icon-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: #FFFFFF;
+  color: var(--ink);
+  border-radius: 14px;
+  padding: 64px 28px 28px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+  text-decoration: none;
+  transition: transform var(--t), box-shadow var(--t);
+  isolation: isolate;
+}
+.icon-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.28);
+}
+
+.icon-card__icon {
+  position: absolute;
+  top: -28px;
+  left: 28px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold-soft), var(--gold) 55%, var(--gold-deep));
+  color: #0E0E0D;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 10px 22px rgba(140, 106, 31, 0.45);
+  border: 3px solid #FFFFFF;
+}
+.icon-card__icon svg {
+  width: 28px;
+  height: 28px;
+  stroke: #0E0E0D;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon-card__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 1.5vw, 1.35rem);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--ink);
+  font-weight: 300;
+}
+.icon-card__title strong {
+  display: block;
+  font-weight: 700;
+}
+.icon-card p {
+  color: var(--ink-soft);
+  font-size: 0.97rem;
+  line-height: 1.55;
+  margin: 0;
+}
+.icon-card__more {
+  margin-top: auto;
+  padding-top: 14px;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--gold-deep);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: gap var(--t), color var(--t);
+}
+.icon-card:hover .icon-card__more { gap: 12px; color: var(--ink); }
+.icon-card__more::after { content: "→"; font-size: 1rem; line-height: 1; }
