@@ -1409,41 +1409,124 @@ p { color: var(--ink); }
 .section--showcase .lead,
 .section--showcase p { color: rgba(255, 255, 255, 0.78); }
 
-/* Diagonal gold stripe blobs in opposite corners. The repeating
-   gradient draws the stripes; a radial mask softens them into
-   organic blob shapes that sit in the corners. */
-.section--showcase::before,
-.section--showcase::after {
-  content: "";
-  position: absolute;
-  width: clamp(280px, 38vw, 560px);
-  height: clamp(280px, 38vw, 560px);
-  background-image: repeating-linear-gradient(
-    135deg,
-    var(--gold) 0,
-    var(--gold) 2px,
-    transparent 2px,
-    transparent 14px
-  );
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.85;
-  -webkit-mask-image: radial-gradient(closest-side at 30% 30%, #000 30%, transparent 75%);
-          mask-image: radial-gradient(closest-side at 30% 30%, #000 30%, transparent 75%);
-}
-.section--showcase::before {
-  top: -8%;
-  left: -8%;
-}
-.section--showcase::after {
-  bottom: -8%;
-  right: -8%;
-  -webkit-mask-image: radial-gradient(closest-side at 70% 70%, #000 30%, transparent 75%);
-          mask-image: radial-gradient(closest-side at 70% 70%, #000 30%, transparent 75%);
-}
 .section--showcase > .container {
   position: relative;
   z-index: 1;
+}
+
+/* ============================================================
+   Ornament system — reusable gold diagonal-stripe corner blobs.
+   Add `.has-ornament` to any section to render two soft, masked
+   stripe blobs in opposite corners. Variants tune angle, density,
+   opacity and which corners are used so the same motif can be
+   reused across light and dark sections in varying flavours.
+   ============================================================ */
+.has-ornament {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  --ornament-angle: 135deg;
+  --ornament-color: var(--gold);
+  --ornament-thickness: 2px;
+  --ornament-gap: 18px;
+  --ornament-size: clamp(380px, 52vw, 760px);
+  --ornament-opacity: 0.9;
+  --ornament-mask-fade: 80%;
+}
+.has-ornament > .container,
+.has-ornament > .subhero__inner {
+  position: relative;
+  z-index: 1;
+}
+.has-ornament::before,
+.has-ornament::after {
+  content: "";
+  position: absolute;
+  width: var(--ornament-size);
+  height: var(--ornament-size);
+  background-image: repeating-linear-gradient(
+    var(--ornament-angle),
+    var(--ornament-color) 0,
+    var(--ornament-color) var(--ornament-thickness),
+    transparent var(--ornament-thickness),
+    transparent var(--ornament-gap)
+  );
+  pointer-events: none;
+  z-index: 0;
+  opacity: var(--ornament-opacity);
+}
+.has-ornament::before {
+  top: -10%;
+  left: -10%;
+  -webkit-mask-image: radial-gradient(closest-side at 30% 30%, #000 32%, transparent var(--ornament-mask-fade));
+          mask-image: radial-gradient(closest-side at 30% 30%, #000 32%, transparent var(--ornament-mask-fade));
+}
+.has-ornament::after {
+  bottom: -10%;
+  right: -10%;
+  -webkit-mask-image: radial-gradient(closest-side at 70% 70%, #000 32%, transparent var(--ornament-mask-fade));
+          mask-image: radial-gradient(closest-side at 70% 70%, #000 32%, transparent var(--ornament-mask-fade));
+}
+
+/* Variant: opposite diagonals for the two corners (cross-hatch feel).
+   Only the bottom-right blob's angle is flipped; the gradient itself
+   re-evaluates `var(--ornament-angle)` automatically. */
+.has-ornament--cross::after {
+  --ornament-angle: 45deg;
+}
+
+/* Variant: wider spacing — sparser, more architectural lines */
+.has-ornament--wide {
+  --ornament-gap: 28px;
+  --ornament-thickness: 2px;
+}
+
+/* Variant: tighter spacing — denser, finer lines */
+.has-ornament--tight {
+  --ornament-gap: 10px;
+  --ornament-thickness: 1px;
+}
+
+/* Variant: extra-large blobs */
+.has-ornament--xl {
+  --ornament-size: clamp(460px, 64vw, 920px);
+}
+
+/* Variant: low opacity for light backgrounds */
+.has-ornament--soft {
+  --ornament-opacity: 0.22;
+}
+.has-ornament--medium {
+  --ornament-opacity: 0.45;
+}
+
+/* Single-corner variants — show only one ornament blob */
+.has-ornament--only-tl::after { display: none; }
+.has-ornament--only-br::before { display: none; }
+.has-ornament--only-tr::before { display: none; }
+.has-ornament--only-tr::after {
+  top: -10%;
+  right: -10%;
+  bottom: auto;
+  left: auto;
+  -webkit-mask-image: radial-gradient(closest-side at 70% 30%, #000 32%, transparent var(--ornament-mask-fade));
+          mask-image: radial-gradient(closest-side at 70% 30%, #000 32%, transparent var(--ornament-mask-fade));
+}
+.has-ornament--only-bl::after { display: none; }
+.has-ornament--only-bl::before {
+  top: auto;
+  left: -10%;
+  bottom: -10%;
+  -webkit-mask-image: radial-gradient(closest-side at 30% 70%, #000 32%, transparent var(--ornament-mask-fade));
+          mask-image: radial-gradient(closest-side at 30% 70%, #000 32%, transparent var(--ornament-mask-fade));
+}
+
+/* Tone the ornament down on small screens so it never overpowers
+   the content on narrow viewports. */
+@media (max-width: 720px) {
+  .has-ornament {
+    --ornament-size: clamp(260px, 70vw, 420px);
+  }
 }
 
 /* Centered head used inside the showcase */
