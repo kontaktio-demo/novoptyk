@@ -1739,7 +1739,7 @@ p { color: var(--ink); }
 }
 .icon-card__tags li {
   font-family: var(--font-ui);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
