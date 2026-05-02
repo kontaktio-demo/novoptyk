@@ -1,20 +1,21 @@
-# Meblove - meble na wymiar · Łódź
+# NOVOOPTYK - salon optyczny · Łódź Nowosolna
 
-Statyczna strona wizerunkowa małej, rodzinnej pracowni **Meblove** z Łodzi.
+Statyczna strona wizerunkowa salonu optycznego **NOVOOPTYK** (Emilia Sulmowska) z Łodzi-Nowosolnej.
 Bez frameworków, bez bundlera - czysty HTML, CSS i JavaScript.
 
 ```
-├── index.html                  - strona główna (hero + liczby + realizacje)
-├── nasze-meble.html            - katalog mebli z filtrami i materiałami
-├── realizacje.html             - portfolio
-├── o-nas.html                  - o pracowni, wartości
-├── kontakt.html                - dane, formularz, mapa, FAQ
+├── index.html                  - strona główna (hero + usługi + jak wygląda wizyta + galeria)
+├── oferta.html                 - oferta (oprawy, słoneczne, badanie wzroku, NOVOKIDS)
+├── realizacje.html             - galeria salonu
+├── o-pracowni.html             - o salonie, wartości
+├── faq.html                    - najczęściej zadawane pytania
+├── kontakt.html                - dane, formularz, godziny otwarcia
 ├── polityka-prywatnosci.html   - polityka prywatności (RODO)
-├── regulamin.html              - regulamin serwisu
+├── regulamin.html              - regulamin serwisu i usług optycznych
 ├── style.css                   - pełny design system
 ├── main.js                     - nawigacja, animacje, cookies, galeria zdjęć
 ├── assets/
-│   ├── logo.svg                - logo Meblove.com.pl (napisowe)
+│   ├── logo.svg                - logo NOVOOPTYK (napisowe)
 │   └── favicon.svg             - favicon
 └── vercel.json                 - konfiguracja Vercel (nagłówki, cache)
 ```
@@ -54,7 +55,7 @@ vercel --prod    # wdrożenie produkcyjne
 
 ## Co zawiera strona
 
-- **Rebranding:** Meblove - meble na wymiar, mała firma z Łodzi, ul. Piotrkowska 137.
+- **Branding:** NOVOOPTYK - salon optyczny w Łodzi-Nowosolnej, ul. Jugosłowiańska 1A.
 - **Logo:** lokalny SVG (`assets/logo.svg`) w nawigacji i stopce, favicon.
 - **Zdjęcia:** tłem dla kafli są obrazy z Unsplash, mapowane przez `main.js` na podstawie kolorystyki sekcji (fallback: oryginalne gradienty).
 - **Animacje:** scroll-progress bar, fade-up w obserwatorze, hero reveal z rozmyciem, parallax (opt-in), licznik statystyk, micro-interakcje na kartach i portfolio.
