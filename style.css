@@ -780,6 +780,174 @@ p { color: var(--ink); }
   .realizacje-grid > .tile.tile--third { grid-column: span 1; }
 }
 
+/* Rich gallery tiles - homepage "Marki i modele" section */
+.tile--rich { color: #F4EFE6; cursor: pointer; }
+.tile--rich .tile__media { aspect-ratio: 4 / 3; }
+.tile--rich .tile__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8,7,6,0) 38%, rgba(8,7,6,0.78) 100%);
+  z-index: 1;
+  transition: background var(--t);
+  pointer-events: none;
+}
+.tile--rich:hover .tile__overlay,
+.tile--rich:focus-visible .tile__overlay {
+  background: linear-gradient(180deg, rgba(8,7,6,0.18) 0%, rgba(8,7,6,0.85) 100%);
+}
+.tile--rich .tile__badge {
+  position: absolute;
+  top: clamp(16px, 1.8vw, 22px);
+  left: clamp(16px, 1.8vw, 22px);
+  z-index: 2;
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: rgba(244,239,230,0.92);
+  backdrop-filter: blur(6px);
+  padding: 7px 12px;
+  border-radius: 999px;
+  line-height: 1;
+}
+.tile--rich .tile__arrow {
+  position: absolute;
+  top: clamp(14px, 1.8vw, 20px);
+  right: clamp(14px, 1.8vw, 20px);
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(244,239,230,0.18);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(244,239,230,0.35);
+  display: grid;
+  place-items: center;
+  color: #F4EFE6;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: background var(--t), color var(--t), transform var(--t), opacity var(--t);
+}
+.tile--rich .tile__arrow::before {
+  content: "↗";
+  font-size: 1.05rem;
+  line-height: 1;
+}
+.tile--rich:hover .tile__arrow,
+.tile--rich:focus-visible .tile__arrow {
+  opacity: 1;
+  transform: translateY(0);
+  background: #F4EFE6;
+  color: var(--ink);
+}
+.tile--rich .tile__body {
+  position: absolute;
+  left: clamp(20px, 2.2vw, 28px);
+  right: clamp(20px, 2.2vw, 28px);
+  bottom: clamp(18px, 2vw, 26px);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+  pointer-events: none;
+}
+.tile--rich .tile__num {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(244,239,230,0.72);
+}
+.tile--rich .tile__title {
+  color: #F7F2EC;
+  font-size: clamp(1.15rem, 1.6vw, 1.55rem);
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  margin: 0;
+}
+.tile--rich .tile__meta {
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: rgba(244,239,230,0.78);
+}
+
+/* Brand strip under the gallery */
+.brand-strip {
+  margin-top: clamp(28px, 3.5vw, 44px);
+  padding: clamp(18px, 2vw, 24px) clamp(20px, 2.4vw, 32px);
+  border-top: 1px solid rgba(14,14,13,0.12);
+  border-bottom: 1px solid rgba(14,14,13,0.12);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 28px;
+}
+.brand-strip__label {
+  font-family: var(--font-ui);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  flex-shrink: 0;
+}
+.brand-strip__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 18px;
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+.brand-strip__list li[aria-hidden="true"] {
+  color: var(--ink-soft);
+  opacity: 0.55;
+}
+
+/* Footer row above the "Zobacz całą galerię" CTA */
+.gallery-foot {
+  margin-top: clamp(28px, 3.5vw, 44px);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px 32px;
+}
+.gallery-foot__notes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 24px;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.gallery-foot__notes li { display: inline-flex; align-items: center; gap: 8px; }
+.gallery-foot__notes span {
+  display: inline-grid;
+  place-items: center;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: #F4EFE6;
+  font-size: 0.7rem;
+  line-height: 1;
+}
+@media (max-width: 720px) {
+  .brand-strip { gap: 10px 18px; }
+  .gallery-foot { flex-direction: column; align-items: flex-start; }
+  .gallery-foot .btn { align-self: stretch; text-align: center; }
+}
+
 .cta-banner {
   background: var(--ink);
   color: #F4EFE6;
