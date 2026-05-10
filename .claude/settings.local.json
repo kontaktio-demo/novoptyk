@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-Command git)",
+      "Bash(ls \"C:\\\\Users\\\\barto\\\\.claude\\\\settings.json\" \"C:\\\\Users\\\\barto\\\\Desktop\\\\novoptyk\\\\.claude\\\\settings.json\" \"C:\\\\Users\\\\barto\\\\Desktop\\\\novoptyk\\\\.claude\\\\settings.local.json\" 2>&1)",
+      "Read(//c/Users/barto/.claude/**)",
+      "PowerShell(\\(Get-Content \"C:\\\\Users\\\\barto\\\\.claude\\\\settings.json\" -Raw | ConvertFrom-Json\\).enabledPlugins | Format-List)"
+    ]
+  }
+}
